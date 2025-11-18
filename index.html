@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Advent Game Calendar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="title">🎄 Advent Game Calendar 🎄</h1>
+
+    <div class="upload-section">
+      <p>Upload your game list (CSV columns: <b>name, imageUrl, length, fixedDate</b>)</p>
+      <p><i>length = short, medium, or long<br>fixedDate = YYYY-MM-DD or blank</i></p>
+      <input type="file" id="csvInput" accept=".csv" />
+    </div>
+
+    <button id="revealButton" disabled>Reveal Today’s Game</button>
+
+    <div id="popup" class="hidden">
+      <div class="popup-box">
+        <img src="https://pngimg.com/d/christmas_box_PNG37.png" class="gift-box" />
+        <h2>Today's game is…</h2>
+        <h1 id="gameName"></h1>
+        <img id="gameImage" class="game-cover" />
+      </div>
+    </div>
+  </div>
+
+  <audio id="jingle">
+    <source src="https://actions.google.com/sounds/v1/ambiences/jingle_bells.ogg" type="audio/ogg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
