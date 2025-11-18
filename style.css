@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url("https://i.imgur.com/xZb5F0D.jpeg"); /* snowy Christmas village */
+  background-image: url("https://unsplash.com/photos/boke-photography-of-christmas-tree-and-string-lights-4D160Ilvm2k"); /* snowy Christmas village */
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -82,3 +82,4 @@ button:disabled {
   border-radius: 10px;
   box-shadow: 0 4px 10px gray;
 }
+
