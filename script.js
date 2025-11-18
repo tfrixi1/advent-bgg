@@ -1,18 +1,25 @@
 let games = [];
 let usedGames = [];
 
-document.getElementById("csvInput").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+document.getElementById("revealButton").addEventListener("click", () => {
+    if (!games || games.length === 0) {
+        alert("Please upload your CSV first.");
+        return;
+    }
 
-    const reader = new FileReader();
-    reader.onload = function (event) {
-        const text = event.target.result;
-        parseCSV(text);
-        document.getElementById("revealButton").disabled = false;
-    };
-    reader.readAsText(file);
+    const game = getGameForToday();
+    if (!game || !game.name) {
+        alert("Your CSV didn't load correctly. Please check formatting.");
+        return;
+    }
+
+    document.getElementById("gameName").textContent = game.name;
+    document.getElementById("gameImage").src = game.imageUrl;
+
+    document.getElementById("jingle").play();
+    document.getElementById("popup").classList.remove("hidden");
 });
+
 
 // Parse CSV with columns: name,imageUrl,length,fixedDate
 function parseCSV(text) {
@@ -99,4 +106,5 @@ document.getElementById("revealButton").addEventListener("click", () => {
 document.getElementById("popup").addEventListener("click", () => {
     document.getElementById("popup").classList.add("hidden");
 });
+
 
