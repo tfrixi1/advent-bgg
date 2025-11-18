@@ -17,6 +17,12 @@ document.getElementById("csvInput").addEventListener("change", function (e) {
 // Parse CSV with columns: name,imageUrl,length,fixedDate
 function parseCSV(text) {
     const rows = text.split("\n").map(r => r.trim()).filter(r => r);
+
+    // Remove header if it exists (detect if first row contains letters)
+    if (rows[0].toLowerCase().includes("name")) {
+        rows.shift();
+    }
+
     games = rows.map(row => {
         const parts = row.split(",");
         return {
@@ -27,6 +33,7 @@ function parseCSV(text) {
         };
     });
 }
+
 
 function isWeekend(date) {
     const day = date.getDay();
@@ -92,3 +99,4 @@ document.getElementById("revealButton").addEventListener("click", () => {
 document.getElementById("popup").addEventListener("click", () => {
     document.getElementById("popup").classList.add("hidden");
 });
+
