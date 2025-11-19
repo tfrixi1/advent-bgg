@@ -1,35 +1,30 @@
 let games = [];
 let usedGames = [];
 
-document.getElementById("revealButton").addEventListener("click", () => {
-    if (!games || games.length === 0) {
-        alert("Please upload your CSV first.");
-        return;
-    }
+const popupEl = document.getElementById("popup");
+const revealBtn = document.getElementById("revealButton");
 
-    const game = getGameForToday();
-    if (!game || !game.name) {
-        alert("Your CSV didn't load correctly. Please check formatting.");
-        return;
-    }
+// Make sure the popup is hidden initially
+popupEl.classList.add("hidden");
 
-    document.getElementById("gameName").textContent = game.name;
-    document.getElementById("gameImage").src = game.imageUrl;
+document.getElementById("csvInput").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    document.getElementById("jingle").play();
-    document.getElementById("popup").classList.remove("hidden");
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const text = event.target.result;
+        parseCSV(text);
+        revealBtn.disabled = false;
+    };
+    reader.readAsText(file);
 });
 
-
-// Parse CSV with columns: name,imageUrl,length,fixedDate
 function parseCSV(text) {
     const rows = text.split("\n").map(r => r.trim()).filter(r => r);
-
-    // Remove header if it exists (detect if first row contains letters)
     if (rows[0].toLowerCase().includes("name")) {
         rows.shift();
     }
-
     games = rows.map(row => {
         const parts = row.split(",");
         return {
@@ -41,10 +36,9 @@ function parseCSV(text) {
     });
 }
 
-
 function isWeekend(date) {
     const day = date.getDay();
-    return day === 0 || day === 6; // Sunday=0, Saturday=6
+    return day === 0 || day === 6;
 }
 
 function getToday() {
@@ -53,14 +47,10 @@ function getToday() {
 
 function getGameForToday() {
     const today = getToday();
-
-    // 1. Respect fixed assignments first
     const fixed = games.find(g => g.fixedDate === today);
     if (fixed) return fixed;
 
     const todayDate = new Date();
-
-    // 2. Determine valid game pool based on day type
     let pool;
     if (isWeekend(todayDate)) {
         pool = games.filter(g => g.length === "long" || g.length === "medium");
@@ -68,21 +58,16 @@ function getGameForToday() {
         pool = games.filter(g => g.length === "short" || g.length === "medium");
     }
 
-    // 3. Remove used games from the pool
     pool = pool.filter(g => !usedGames.includes(g.name));
-
-    // If all games in the category have been used, reset
     if (pool.length === 0) {
         usedGames = [];
-        return getGameForToday();
+        pool = games.filter(g => !usedGames.includes(g.name));
     }
 
-    // 4. Weighted randomness:
-    // medium games have slightly higher weight
     let weightedPool = [];
     pool.forEach(g => {
         if (g.length === "medium") {
-            weightedPool.push(g, g); // double weight
+            weightedPool.push(g, g);
         } else {
             weightedPool.push(g);
         }
@@ -93,18 +78,24 @@ function getGameForToday() {
     return selected;
 }
 
-document.getElementById("revealButton").addEventListener("click", () => {
+revealBtn.addEventListener("click", () => {
+    if (!games.length) {
+        alert("Please upload your CSV first.");
+        return;
+    }
     const game = getGameForToday();
+    if (!game) {
+        alert("Could not find a valid game for today.");
+        return;
+    }
 
     document.getElementById("gameName").textContent = game.name;
     document.getElementById("gameImage").src = game.imageUrl;
 
     document.getElementById("jingle").play();
-    document.getElementById("popup").classList.remove("hidden");
+    popupEl.classList.remove("hidden");
 });
 
-document.getElementById("popup").addEventListener("click", () => {
-    document.getElementById("popup").classList.add("hidden");
+popupEl.addEventListener("click", () => {
+    popupEl.classList.add("hidden");
 });
-
-
