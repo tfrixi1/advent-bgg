@@ -52,7 +52,7 @@ button:disabled {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .popup-box {
@@ -82,6 +82,7 @@ button:disabled {
   border-radius: 10px;
   box-shadow: 0 4px 10px gray;
 }
+
 
 
 
