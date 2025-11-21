@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="create-body">
+
+    <div id="create-container">
+
+        <h1>Create Your Advent Calendar</h1>
+
+        <!-- CSV upload -->
+        <label class="input-label">Upload Game List (CSV)</label>
+        <input type="file" id="csv-upload" accept=".csv">
+
+        <!-- Background upload -->
+        <label class="input-label">Upload Background Image (.png)</label>
+        <input type="file" id="bg-upload" accept=".png">
+
+        <!-- Calendar title -->
+        <label class="input-label">Calendar Title</label>
+        <input type="text" id="calendar-title-input" placeholder="e.g. Our 2025 Holiday Game Calendar">
+
+        <!-- Date range -->
+        <label class="input-label">Start Date</label>
+        <input type="date" id="start-date">
+
+        <label class="input-label">End Date</label>
+        <input type="date" id="end-date">
+
+        <!-- Generate -->
+        <button id="generate-btn">Generate Calendar Files</button>
+
+        <p id="generator-status"></p>
+    </div>
+
+    <script src="js/generator.js"></script>
+</body>
+</html>
