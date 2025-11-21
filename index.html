@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Advent Game Calendar</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Advent Calendar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-  <div class="container">
-    <h1 id="title">🎄 Advent Game Calendar 🎄</h1>
+<body id="calendar-body">
 
-    <div class="upload-section">
-      <p>Upload your game list (CSV columns: <b>name, imageUrl, length, fixedDate</b>)</p>
-      <p><i>length = short, medium, or long<br>fixedDate = YYYY-MM-DD or blank</i></p>
-      <input type="file" id="csvInput" accept=".csv" />
+    <!-- Title banner -->
+    <div id="title-banner">
+        <h1 id="calendar-title">Loading...</h1>
     </div>
 
-    <button id="revealButton" disabled>Reveal Today’s Game</button>
+    <!-- Door container -->
+    <div id="door-container"></div>
 
-    <div id="popup" class="hidden">
-      <div class="popup-box">
-        <img src="https://pngimg.com/d/christmas_box_PNG37.png" class="gift-box" />
-        <h2>Today's game is…</h2>
-        <h1 id="gameName"></h1>
-        <img id="gameImage" class="game-cover" />
-      </div>
+    <!-- Popup overlay -->
+    <div id="popup-overlay" class="hidden">
+        <div id="popup-content">
+            <span id="popup-close">&times;</span>
+            <h2 id="popup-heading"></h2>
+            <h3 id="popup-gamename"></h3>
+            <img id="popup-image" src="" alt="Game Image">
+        </div>
     </div>
-  </div>
 
-  <audio id="jingle">
-    <source src="https://tfrixi1.github.io/advent-bgg/assets/bells-jingling-2-372467.mp3" type="audio/ogg" />
-  </audio>
+    <!-- Sound -->
+    <audio id="bell-sound" src="assets/jingle_bells.ogg" preload="auto"></audio>
 
-  <script src="script.js"></script>
+    <script src="js/calendar.js"></script>
 </body>
 </html>
-
-
-
