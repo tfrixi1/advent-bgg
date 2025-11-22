@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ---------- Helper function to compare only year/month/day ----------
-  function isSameDay(date1, date2) {
-    return date1.getFullYear() === date2.getFullYear() &&
-           date1.getMonth() === date2.getMonth() &&
-           date1.getDate() === date2.getDate();
-  }
-
   const calendarEl = document.getElementById('calendar');
   const popup = document.getElementById('popup');
   const popupImage = document.getElementById('popup-image');
@@ -14,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.getElementById('close-popup');
   const doorSound = document.getElementById('door-sound');
 
-  // ---------- Set "today" for testing ----------
-  const today = new Date('2025-12-15'); // Change this to test different days
-  today.setHours(0,0,0,0);
+  // ------------------ TEST SETTING ------------------
+  const TEST_MONTH = 11; // December (0-indexed)
+  const TEST_DAY = 3;    // Change this to test today
 
   fetch('games.json')
     .then(res => res.json())
@@ -34,33 +27,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const door = document.createElement('div');
         door.classList.add('door');
 
-        // ---------- Reliable door date ----------
-        const doorDate = new Date(2025, 11, i); // month 11 = December
-        doorDate.setHours(0,0,0,0);
+        // ------------------ Determine door status ------------------
+        const doorDay = i;
+        const doorMonth = 11; // December
 
-        const isToday = isSameDay(doorDate, today);
-        const isPast = doorDate < today && !isToday;
-        const isFuture = doorDate > today && !isToday;
+        const isToday = (doorDay === TEST_DAY && doorMonth === TEST_MONTH);
+        const isPast = (doorDay < TEST_DAY && doorMonth === TEST_MONTH);
+        const isFuture = (doorDay > TEST_DAY && doorMonth === TEST_MONTH);
 
-        // ---------- Assign game ----------
+        // ------------------ Assign game ------------------
         let game;
         const fixed = fixedGames.find(g => {
-          const fixedDate = new Date(g.fixed_date);
-          fixedDate.setHours(0,0,0,0);
-          return isSameDay(fixedDate, doorDate);
+          if(!g.fixed_date) return false;
+          const dateParts = g.fixed_date.split('-'); // "YYYY-MM-DD"
+          const fixedMonth = parseInt(dateParts[1], 10) - 1; // 0-indexed
+          const fixedDay = parseInt(dateParts[2], 10);
+          return fixedMonth === doorMonth && fixedDay === doorDay;
         });
 
         if(fixed){
           game = fixed;
         } else {
-          const day = doorDate.getDay(); // 0=Sun,6=Sat
-          let pool = (day === 0 || day === 6) ? longGames : shortGames;
+          const dayOfWeek = new Date(2025, doorMonth, doorDay).getDay();
+          let pool = (dayOfWeek === 0 || dayOfWeek === 6) ? longGames : shortGames;
           pool = pool.filter(g => !usedGames.has(g.game_name));
           if(pool.length === 0){
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
           }
           if(pool.length === 0){
-            pool = games; // final fallback
+            pool = games; // fallback
           }
           game = pool[Math.floor(Math.random() * pool.length)];
         }
@@ -69,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         door.dataset.gameName = game.game_name;
         door.dataset.gameImage = game.image;
 
-        // ---------- Display behavior ----------
+        // ------------------ Display behavior ------------------
         if(isFuture){
           door.classList.add('locked');
           door.textContent = '🔒';
@@ -82,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if(isToday){
           door.textContent = i;
 
-          // Attach click listener for today
+          // Click listener for today
           door.addEventListener('click', function openTodayDoor() {
             if(!door.dataset.gameName) return;
 
@@ -103,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
               door.innerHTML = `<img src="${door.dataset.gameImage}" style="display:block;"><span class="checkmark">✔</span>`;
             }, 600);
 
-            // Remove listener so it doesn’t trigger again
+            // Remove listener
             door.removeEventListener('click', openTodayDoor);
           });
         }
@@ -114,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.error('Error loading games.json:', err));
 
-  // ---------- Close popup ----------
+  // ------------------ Close popup ------------------
   if(closePopupBtn){
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
