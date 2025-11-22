@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: url('background.jpg') no-repeat center center fixed;
+  background: url('images/background.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
 }
@@ -99,4 +99,5 @@ header {
   .door.medium { width: 65px; height: 80px; }
   .door.large { width: 80px; height: 100px; }
 }
+
 
