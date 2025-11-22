@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.getElementById('close-popup');
   const doorSound = document.getElementById('door-sound');
 
-  const today = new Date('2025-12-03');
+  // ---------- Set "today" for testing ----------
+  const today = new Date('2025-12-05'); // Change this to test different days
   today.setHours(0,0,0,0);
 
   fetch('games.json')
@@ -26,14 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const door = document.createElement('div');
         door.classList.add('door');
 
-        const doorDate = new Date(`2025-12-${i}`);
+        // ---------- Reliable door date ----------
+        const doorDate = new Date(2025, 11, i); // month 11 = December
         doorDate.setHours(0,0,0,0);
 
         const isPast = doorDate < today;
         const isToday = doorDate.getTime() === today.getTime();
         const isFuture = doorDate > today;
 
-        // Assign game
+        // ---------- Assign game ----------
         let game;
         const fixed = fixedGames.find(g => {
           const fixedDate = new Date(g.fixed_date);
@@ -44,14 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(fixed){
           game = fixed;
         } else {
-          const day = doorDate.getDay();
+          const day = doorDate.getDay(); // 0=Sun,6=Sat
           let pool = (day === 0 || day === 6) ? longGames : shortGames;
           pool = pool.filter(g => !usedGames.has(g.game_name));
           if(pool.length === 0){
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
           }
           if(pool.length === 0){
-            pool = games;
+            pool = games; // final fallback
           }
           game = pool[Math.floor(Math.random() * pool.length)];
         }
@@ -60,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         door.dataset.gameName = game.game_name;
         door.dataset.gameImage = game.image;
 
-        // Display behavior
+        // ---------- Display behavior ----------
         if(isFuture){
           door.classList.add('locked');
           door.textContent = '🔒';
@@ -73,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if(isToday){
           door.textContent = i;
 
-          // Only attach the click listener once
+          // Attach click listener for today
           door.addEventListener('click', function openTodayDoor() {
             if(!door.dataset.gameName) return;
 
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
               door.innerHTML = `<img src="${door.dataset.gameImage}" style="display:block;"><span class="checkmark">✔</span>`;
             }, 600);
 
-            // Remove this listener so it doesn't trigger again
+            // Remove listener so it doesn’t trigger again
             door.removeEventListener('click', openTodayDoor);
           });
         }
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.error('Error loading games.json:', err));
 
-  // Close popup safely
+  // ---------- Close popup ----------
   if(closePopupBtn){
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
@@ -115,4 +117,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-
