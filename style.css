@@ -14,26 +14,28 @@ header {
 
 #calendar {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(5, 1fr); /* 5 doors per row */
+  gap: 10px; /* space between doors */
   padding: 20px;
+  justify-items: center; /* centers doors in each column */
 }
 
+
 .door {
-  position: relative;
-  background: rgba(255,215,0,0.5); /* 50% gold */
+  background: rgba(255,215,0,0.5); 
   border: 2px dashed #fff;
   padding: 10px;
   text-align: center;
   cursor: pointer;
   transition: opacity 0.6s ease;
   border-radius: 8px;
-  width: 80px;
-  height: 90px;
+  width: 80px;  /* fixed width */
+  height: 90px; /* fixed height */
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 
 .door.locked {
   cursor: not-allowed;
@@ -83,6 +85,7 @@ header {
 .hidden {
   display: none;
 }
+
 
 
 
