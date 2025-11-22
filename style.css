@@ -1,200 +1,102 @@
-/* =========================================================
-   GLOBAL BASE STYLES
-   Background image is user-selected and applied inline
-   ========================================================= */
-
 body {
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: sans-serif;
+  background: url('background.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: #fff;
 }
 
-/* ============================
-   TOP TITLE BANNER
-   ============================ */
-
-#calendar-title-banner {
-  margin-top: 20px;
-  background: rgba(255, 215, 0, 0.5); /* 50% gold tint */
-  padding: 15px 30px;
-  border-radius: 15px 15px 0 0;
-  border-bottom: 4px dashed black;
-  font-size: 2rem;
-  font-weight: bold;
+header {
   text-align: center;
-  backdrop-filter: blur(3px);
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
 }
-
-/* =========================================================
-   CALENDAR GRID — DOOR POSITIONS ARE ABSOLUTE, RANDOMIZED ONCE
-   ========================================================= */
 
 #calendar {
-  position: relative;
-  width: 90%;
-  height: 75vh;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  padding: 20px;
 }
 
-/* =========================================================
-   DOOR (GIFT BOX STYLE)
-   ========================================================= */
-
 .door {
-  position: absolute;
-  width: 110px;
-  height: 110px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 3px dashed black;
-  border-radius: 12px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
-  backdrop-filter: blur(3px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  font-weight: bold;
+  position: relative;
+  background: rgba(255,215,0,0.5); /* 50% gold */
+  border: 2px dashed #fff;
+  padding: 10px;
+  text-align: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: opacity 0.6s ease;
+  border-radius: 8px;
 }
 
 .door.locked {
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
-.door:hover:not(.locked):not(.opened) {
-  transform: scale(1.08);
+.door img {
+  width: 100%;
+  display: none;
+  border-radius: 4px;
 }
 
-/* OPENED DOOR (shows game name + image in box) */
-.door.opened {
-  background: rgba(255, 255, 255, 0.75);
-  border: 3px solid black;
-  color: black;
-  font-size: 1rem;
-  flex-direction: column;
-  padding: 5px;
+.checkmark {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 1.2em;
+  color: #0f0;
 }
 
-.door.opened img {
-  max-width: 90%;
-  max-height: 70%;
-  margin-top: 4px;
-  border-radius: 6px;
-}
-
-/* =========================================================
-   POPUP — ZOOM REVEAL
-   ========================================================= */
-
-#reveal-overlay {
+#popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.55);
-  display: none;
+  background: rgba(0,0,0,0.7);
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 1000;
 }
 
-#popup {
-  background: white;
-  width: 350px;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  animation: popupZoom 0.35s ease-out forwards;
-  border: 4px dashed black;
-}
-
-#popup h2 {
-  margin-top: 0;
-  font-size: 1.6rem;
-}
-
-#popup img {
-  width: 95%;
-  max-height: 340px;
-  object-fit: contain;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-/* Close Button */
-#close-popup {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: black;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* =========================================================
-   ZOOM OPEN ANIMATION
-   ========================================================= */
-
-@keyframes popupZoom {
-  0% { transform: scale(0.4); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-
-/* =========================================================
-   CREATE SCREEN LAYOUT (create.html)
-   ========================================================= */
-
-#create-container {
-  margin-top: 30px;
-  width: 90%;
-  max-width: 600px;
-  background: rgba(255,255,255,0.55);
-  padding: 25px;
-  border-radius: 12px;
-  backdrop-filter: blur(4px);
-  border: 3px dashed black;
-}
-
-#create-container h2 {
-  margin-top: 0;
-}
-
-.input-block {
-  margin-bottom: 20px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="file"],
-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 2px solid black;
-  background: rgba(255,255,255,0.7);
-}
-
-button {
-  padding: 12px 20px;
-  background: black;
-  color: white;
-  font-weight: bold;
+.popup-content {
+  background: #fff;
+  color: #000;
+  padding: 20px;
   border-radius: 8px;
-  cursor: pointer;
+  text-align: center;
+  max-width: 300px;
 }
 
-button:hover { opacity: 0.8; }
+.popup-content img {
+  max-width: 100%;
+  border-radius: 4px;
+}
 
-/* ========================================================= */
+.hidden {
+  display: none;
+}
+/* Door size variations for height and width */
+.door.small {
+  height: 70px;
+  width: 60px;
+}
+
+.door.medium {
+  height: 90px;
+  width: 80px;
+}
+
+.door.large {
+  height: 110px;
+  width: 100px;
+}
+
+@media (max-width: 480px) {
+  .door.small { width: 50px; height: 60px; }
+  .door.medium { width: 65px; height: 80px; }
+  .door.large { width: 80px; height: 100px; }
+}
 
