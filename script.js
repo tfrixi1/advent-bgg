@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
           }
           if(pool.length === 0){
-            pool = games; // final fallback
+            pool = games;
           }
           game = pool[Math.floor(Math.random() * pool.length)];
         }
@@ -72,31 +72,45 @@ document.addEventListener('DOMContentLoaded', () => {
           door.innerHTML += `<span class="checkmark">✔</span>`;
         } else if(isToday){
           door.textContent = i;
-          door.addEventListener('click', () => openDoor(door));
+
+          // Only attach the click listener once
+          door.addEventListener('click', function openTodayDoor() {
+            if(!door.dataset.gameName) return;
+
+            // Play sound
+            if(doorSound) doorSound.play();
+
+            // Fade out door
+            door.style.opacity = 0;
+
+            setTimeout(() => {
+              // Show popup
+              popupImage.src = door.dataset.gameImage;
+              popupName.textContent = door.dataset.gameName;
+              popup.classList.remove('hidden');
+
+              // Mark door as opened
+              door.style.opacity = 1;
+              door.innerHTML = `<img src="${door.dataset.gameImage}" style="display:block;"><span class="checkmark">✔</span>`;
+            }, 600);
+
+            // Remove this listener so it doesn't trigger again
+            door.removeEventListener('click', openTodayDoor);
+          });
         }
 
         calendarEl.appendChild(door);
       }
+
     })
     .catch(err => console.error('Error loading games.json:', err));
 
-  function openDoor(door){
-    if(!door.dataset.gameName) return;
-    doorSound.play();
-    door.style.opacity = 0;
-    setTimeout(() => {
-      popupImage.src = door.dataset.gameImage;
-      popupName.textContent = door.dataset.gameName;
-      popup.classList.remove('hidden');
-      door.style.opacity = 1;
-      door.innerHTML = `<img src="${door.dataset.gameImage}" style="display:block;"><span class="checkmark">✔</span>`;
-    }, 600);
-  }
-
-  // Safely attach close listener
+  // Close popup safely
   if(closePopupBtn){
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
+      popupImage.src = '';
+      popupName.textContent = '';
     });
   }
 
