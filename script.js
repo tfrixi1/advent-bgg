@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.getElementById('close-popup');
   const doorSound = document.getElementById('door-sound');
 
-  const today = new Date();
+  const today = new Date('2025-12-03');
   today.setHours(0,0,0,0);
 
   fetch('games.json')
@@ -115,3 +115,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
