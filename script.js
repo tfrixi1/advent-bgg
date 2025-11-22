@@ -31,9 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const doorDate = new Date(2025, 11, i); // month 11 = December
         doorDate.setHours(0,0,0,0);
 
-        const isPast = doorDate < today;
-        const isToday = doorDate.getTime() === today.getTime();
-        const isFuture = doorDate > today;
+        const isToday = isSameDay(doorDate, today);
+        const isPast = doorDate < today && !isToday;
+        const isFuture = doorDate > today && !isToday;
+
 
         // ---------- Assign game ----------
         let game;
@@ -117,3 +118,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
