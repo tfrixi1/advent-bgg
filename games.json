@@ -1,1 +1,6 @@
+[
+  {"game_name": "Ticket to Ride", "image": "images/ticket-to-ride.jpg", "length": "long", "fixed_date": ""},
+  {"game_name": "Love Letter", "image": "images/love-letter.jpg", "length": "short", "fixed_date": ""},
+  {"game_name": "Catan", "image": "images/catan.jpg", "length": "long", "fixed_date": "2025-12-05"}
+]
 
