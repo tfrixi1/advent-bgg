@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Advent Calendar</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 Board Game Advent Calendar 🎄🎲</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>2025 Board Game Advent Calendar 🎄🎲</h1>
+  </header>
 
-    <!-- Title Banner -->
-    <div id="calendar-title-banner"></div>
+  <main id="calendar"></main>
 
-    <!-- Calendar Door Area -->
-    <div id="calendar"></div>
-
-    <!-- Popup Overlay -->
-    <div id="reveal-overlay">
-        <div id="popup">
-            <h2 id="popup-title">Today's Game Is:</h2>
-            <img id="popup-image" src="" alt="Game Image">
-            <div id="close-popup">Close</div>
-        </div>
+  <!-- Popup for today's game -->
+  <div id="popup" class="hidden">
+    <div class="popup-content">
+      <button id="close-popup">X</button>
+      <h2>Today's game is:</h2>
+      <img id="popup-image" src="" alt="Game Image">
+      <p id="popup-name"></p>
     </div>
+  </div>
 
-     <!-- Sound -->
-    <audio id="bell-sound" src="assets/bells-jingling-2-372467.mp3" preload="auto"></audio>
+  <audio id="door-sound" src="sounds/bells-jingling-2-372467.mp3"></audio>
 
-       
-    <script src="app.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
-
