@@ -5,6 +5,7 @@ const popupName = document.getElementById('popup-name');
 const closePopupBtn = document.getElementById('close-popup');
 const doorSound = document.getElementById('door-sound');
 
+// Set today's date (time set to 0:00 for correct comparison)
 let today = new Date();
 today.setHours(0,0,0,0);
 
@@ -29,26 +30,34 @@ fetch('games.json')
       const sizes = ['small','medium','large'];
       door.classList.add(sizes[Math.floor(Math.random()*sizes.length)]);
 
+      // Set door date
       const doorDate = new Date(`2025-12-${i}`);
+      doorDate.setHours(0,0,0,0); // important for correct comparison
       const isPast = doorDate < today;
       const isToday = doorDate.getTime() === today.getTime();
       const isFuture = doorDate > today;
 
       // Assign game
       let game;
-      const fixed = fixedGames.find(g => new Date(g.fixed_date).getDate() === i);
-      if(fixed) {
+      const fixed = fixedGames.find(g => {
+        const fixedDate = new Date(g.fixed_date);
+        fixedDate.setHours(0,0,0,0);
+        return fixedDate.getTime() === doorDate.getTime();
+      });
+
+      if(fixed){
         game = fixed;
       } else {
         // Smart scheduling
         const day = doorDate.getDay(); // 0=Sun, 6=Sat
         let pool = (day === 0 || day === 6) ? longGames : shortGames;
 
-        // Pick a random game from pool that hasn’t been used
+        // Filter out already used games
         pool = pool.filter(g => !usedGames.has(g.game_name));
-        if(pool.length === 0){ // fallback if exhausted
+        if(pool.length === 0){ // fallback if pool is empty
           pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
         }
+
         game = pool[Math.floor(Math.random() * pool.length)];
       }
 
@@ -66,7 +75,7 @@ fetch('games.json')
         img.style.display = 'block';
         door.appendChild(img);
         door.innerHTML += `<span class="checkmark">✔</span>`;
-      } else {
+      } else if(isToday){
         door.textContent = i;
         door.addEventListener('click', () => openDoor(door));
       }
@@ -75,6 +84,7 @@ fetch('games.json')
     }
   });
 
+// Function to open today's door
 function openDoor(door){
   doorSound.play();
   door.style.opacity = 0;
@@ -87,6 +97,7 @@ function openDoor(door){
   }, 600);
 }
 
+// Close popup
 closePopupBtn.addEventListener('click', () => {
   popup.classList.add('hidden');
 });
