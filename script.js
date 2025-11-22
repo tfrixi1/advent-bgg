@@ -42,21 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if(fixed){
-          game = fixed;
-        } else {
-          const day = doorDate.getDay(); // 0=Sun,6=Sat
-          let pool = (day === 0 || day === 6) ? longGames : shortGames;
-          pool = pool.filter(g => !usedGames.has(g.game_name));
-          if(pool.length === 0){ 
-            pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
-          }
-          // Fallback if no game available
-          if(pool.length === 0){
-            console.warn(`No available game for day ${i}`);
-            continue; // skip this door
-          }
-          game = pool[Math.floor(Math.random() * pool.length)];
-        }
+  game = fixed;
+} else {
+  const day = doorDate.getDay(); // 0=Sun,6=Sat
+  let pool = (day === 0 || day === 6) ? longGames : shortGames;
+
+  // Remove already used games
+  pool = pool.filter(g => !usedGames.has(g.game_name));
+
+  // Fallback to any remaining flexible game if pool is empty
+  if(pool.length === 0){
+    pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
+  }
+
+  // Final fallback: pick a random game from all games if still empty
+  if(pool.length === 0){
+    pool = games;
+  }
+
+  game = pool[Math.floor(Math.random() * pool.length)];
+}
+
 
         usedGames.add(game.game_name);
         door.dataset.gameName = game.game_name;
@@ -99,3 +105,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
