@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ---------- Helper function to compare only year/month/day ----------
+  function isSameDay(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getDate() === date2.getDate();
+  }
+
   const calendarEl = document.getElementById('calendar');
   const popup = document.getElementById('popup');
   const popupImage = document.getElementById('popup-image');
@@ -8,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const doorSound = document.getElementById('door-sound');
 
   // ---------- Set "today" for testing ----------
-  const today = new Date('2025-12-05'); // Change this to test different days
+  const today = new Date('2025-12-15'); // Change this to test different days
   today.setHours(0,0,0,0);
 
   fetch('games.json')
@@ -35,13 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPast = doorDate < today && !isToday;
         const isFuture = doorDate > today && !isToday;
 
-
         // ---------- Assign game ----------
         let game;
         const fixed = fixedGames.find(g => {
           const fixedDate = new Date(g.fixed_date);
           fixedDate.setHours(0,0,0,0);
-          return fixedDate.getTime() === doorDate.getTime();
+          return isSameDay(fixedDate, doorDate);
         });
 
         if(fixed){
@@ -118,4 +124,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-
