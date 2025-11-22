@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.getElementById('close-popup');
   const doorSound = document.getElementById('door-sound');
 
-  // Set today at midnight
   const today = new Date();
   today.setHours(0,0,0,0);
 
@@ -27,10 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const door = document.createElement('div');
         door.classList.add('door');
 
-        // Random door size
-        const sizes = ['small','medium','large'];
-        door.classList.add(sizes[Math.floor(Math.random()*sizes.length)]);
-
         const doorDate = new Date(`2025-12-${i}`);
         doorDate.setHours(0,0,0,0);
 
@@ -49,11 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if(fixed){
           game = fixed;
         } else {
-          const day = doorDate.getDay();
+          const day = doorDate.getDay(); // 0=Sun,6=Sat
           let pool = (day === 0 || day === 6) ? longGames : shortGames;
           pool = pool.filter(g => !usedGames.has(g.game_name));
-          if(pool.length === 0){
+          if(pool.length === 0){ 
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
+          }
+          // Fallback if no game available
+          if(pool.length === 0){
+            console.warn(`No available game for day ${i}`);
+            continue; // skip this door
           }
           game = pool[Math.floor(Math.random() * pool.length)];
         }
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Display behavior
         if(isFuture){
           door.classList.add('locked');
-          door.innerHTML = '🔒';
+          door.textContent = '🔒';
         } else if(isPast){
           const img = document.createElement('img');
           img.src = game.image;
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-  // Open today's door
   function openDoor(door){
+    if(!door.dataset.gameName) return; // safeguard
     doorSound.play();
     door.style.opacity = 0;
     setTimeout(() => {
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 600);
   }
 
-  // Close popup
   closePopupBtn.addEventListener('click', () => {
     popup.classList.add('hidden');
   });
