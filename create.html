@@ -2,41 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Calendar</title>
+    <title>Create Your Advent Calendar</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
-<body id="create-body">
+<body>
 
     <div id="create-container">
+        <h2>Create Your Advent Calendar</h2>
 
-        <h1>Create Your Advent Calendar</h1>
+        <!-- Calendar Title -->
+        <div class="input-block">
+            <label><strong>Calendar Title:</strong></label>
+            <input id="calendar-title" type="text" placeholder="Example: Our 2025 Advent Calendar">
+        </div>
 
-        <!-- CSV upload -->
-        <label class="input-label">Upload Game List (CSV)</label>
-        <input type="file" id="csv-upload" accept=".csv">
+        <!-- Background Image -->
+        <div class="input-block">
+            <label><strong>Background Image URL:</strong></label>
+            <input id="background-image" type="text" placeholder="https://example.com/snowy_village.png">
+        </div>
 
-        <!-- Background upload -->
-        <label class="input-label">Upload Background Image (.png)</label>
-        <input type="file" id="bg-upload" accept=".png">
+        <!-- Start & End Dates -->
+        <div class="input-block">
+            <label><strong>Start Date:</strong></label>
+            <input id="start-date" type="date">
+        </div>
 
-        <!-- Calendar title -->
-        <label class="input-label">Calendar Title</label>
-        <input type="text" id="calendar-title-input" placeholder="e.g. Our 2025 Holiday Game Calendar">
+        <div class="input-block">
+            <label><strong>End Date:</strong></label>
+            <input id="end-date" type="date">
+        </div>
 
-        <!-- Date range -->
-        <label class="input-label">Start Date</label>
-        <input type="date" id="start-date">
+        <!-- CSV Upload -->
+        <div class="input-block">
+            <label><strong>Upload Games CSV:</strong></label>
+            <input id="csv-file" type="file" accept=".csv">
+            <p style="font-size: 0.9rem; margin-top: 5px;">
+                Format: <code>name, imageURL, length(short/medium/long), fixedDate(optional)</code>
+            </p>
+        </div>
 
-        <label class="input-label">End Date</label>
-        <input type="date" id="end-date">
-
-        <!-- Generate -->
-        <button id="generate-btn">Generate Calendar Files</button>
-
-        <p id="generator-status"></p>
+        <button id="generate-btn">Generate Calendar</button>
     </div>
 
-    <script src="js/generator.js"></script>
+    <script src="app.js"></script>
+
 </body>
 </html>
