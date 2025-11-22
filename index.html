@@ -5,30 +5,24 @@
     <title>Advent Calendar</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body id="calendar-body">
+    <!-- Title Banner -->
+    <div id="calendar-title-banner"></div>
 
-    <!-- Title banner -->
-    <div id="title-banner">
-        <h1 id="calendar-title">Loading...</h1>
-    </div>
+    <!-- Calendar Door Area -->
+    <div id="calendar"></div>
 
-    <!-- Door container -->
-    <div id="door-container"></div>
-
-    <!-- Popup overlay -->
-    <div id="popup-overlay" class="hidden">
-        <div id="popup-content">
-            <span id="popup-close">&times;</span>
-            <h2 id="popup-heading"></h2>
-            <h3 id="popup-gamename"></h3>
+    <!-- Popup Overlay -->
+    <div id="reveal-overlay">
+        <div id="popup">
+            <h2 id="popup-title">Today's Game Is:</h2>
             <img id="popup-image" src="" alt="Game Image">
+            <div id="close-popup">Close</div>
         </div>
     </div>
 
-    <!-- Sound -->
-    <audio id="bell-sound" src="assets/jingle_bells.ogg" preload="auto"></audio>
+    <script src="app.js"></script>
 
-    <script src="js/calendar.js"></script>
 </body>
 </html>
