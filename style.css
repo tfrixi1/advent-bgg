@@ -28,6 +28,11 @@ header {
   cursor: pointer;
   transition: opacity 0.6s ease;
   border-radius: 8px;
+  width: 80px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .door.locked {
@@ -78,26 +83,6 @@ header {
 .hidden {
   display: none;
 }
-/* Door size variations for height and width */
-.door.small {
-  height: 70px;
-  width: 60px;
-}
 
-.door.medium {
-  height: 90px;
-  width: 80px;
-}
-
-.door.large {
-  height: 110px;
-  width: 100px;
-}
-
-@media (max-width: 480px) {
-  .door.small { width: 50px; height: 60px; }
-  .door.medium { width: 65px; height: 80px; }
-  .door.large { width: 80px; height: 100px; }
-}
 
 
