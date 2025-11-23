@@ -55,8 +55,10 @@ header {
 
 .door img {
   width: 100%;
-  display: none;
-  border-radius: 4px;
+  height: 100%;
+  object-fit: contain; /* keeps proportions */
+  border-radius: 6px; /* optional, looks nice */
+  pointer-events: none; /* prevents accidental clicking */
 }
 
 .checkmark {
@@ -127,6 +129,7 @@ header {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
 
 
 
