@@ -1,6 +1,50 @@
 [
-  {"game_name": "Ticket to Ride", "image": "images/ticket-to-ride.jpg", "length": "long", "fixed_date": ""},
-  {"game_name": "Love Letter", "image": "images/love-letter.jpg", "length": "short", "fixed_date": ""},
-  {"game_name": "Catan", "image": "images/catan.jpg", "length": "long", "fixed_date": "2025-12-05"}
+  {
+    "Name": "Ticket to Ride Nordic Countries",
+    "ImageURL": "images/Ticket-to-ride-nordic-countries.jpg",
+    "length": "Long",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Bombastic",
+    "ImageURL": "images/Bombastic.jpg",
+    "length": "Short",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Viking See-Saw",
+    "ImageURL": "images/Viking-See-Saw.jpg",
+    "length": "Short",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Dice Throne",
+    "ImageURL": "images/Dice-Throne-Santa-V-Krampus.jpg",
+    "length": "Short",
+    "fixedDate": "2025-12-01"
+  },
+  {
+    "Name": "Skulls of Sedlec",
+    "ImageURL": "images/Skulls-of-Sedlec.jpg",
+    "length": "Short",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Dice Throne Missions",
+    "ImageURL": "images/Dice-Throne-Missions.jpg",
+    "length": "Short",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Kingdomino",
+    "ImageURL": "images/Kingdomino-Origins.jpg",
+    "length": "Short",
+    "fixedDate": ""
+  },
+  {
+    "Name": "Dodo's Riding Dinos",
+    "ImageURL": "images/Dodos-Riding-Dinos.png",
+    "length": "Short",
+    "fixedDate": ""
+  }
 ]
-
