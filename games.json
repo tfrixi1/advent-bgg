@@ -1,49 +1,49 @@
 [
   {
     "Name": "Ticket to Ride Nordic Countries",
-    "ImageURL": "images/Ticket-to-ride-nordic-countries.jpg",
+    "ImageURL": "images/Ticket-to-ride-nordic-countries",
     "length": "Long",
     "fixedDate": ""
   },
   {
     "Name": "Bombastic",
-    "ImageURL": "images/Bombastic.jpg",
+    "ImageURL": "images/Bombastic",
     "length": "Short",
     "fixedDate": ""
   },
   {
     "Name": "Viking See-Saw",
-    "ImageURL": "images/Viking-See-Saw.jpg",
+    "ImageURL": "images/Viking-See-Saw",
     "length": "Short",
     "fixedDate": ""
   },
   {
     "Name": "Dice Throne",
-    "ImageURL": "images/Dice-Throne-Santa-V-Krampus.jpg",
+    "ImageURL": "images/Dice-Throne-Santa-V-Krampus",
     "length": "Short",
     "fixedDate": "2025-12-01"
   },
   {
     "Name": "Skulls of Sedlec",
-    "ImageURL": "images/Skulls-of-Sedlec.jpg",
+    "ImageURL": "images/Skulls-of-Sedlec",
     "length": "Short",
     "fixedDate": ""
   },
   {
     "Name": "Dice Throne Missions",
-    "ImageURL": "images/Dice-Throne-Missions.jpg",
+    "ImageURL": "images/Dice-Throne-Missions",
     "length": "Short",
     "fixedDate": ""
   },
   {
     "Name": "Kingdomino",
-    "ImageURL": "images/Kingdomino-Origins.jpg",
+    "ImageURL": "images/Kingdomino-Origins",
     "length": "Short",
     "fixedDate": ""
   },
   {
     "Name": "Dodo's Riding Dinos",
-    "ImageURL": "images/Dodos-Riding-Dinos.png",
+    "ImageURL": "images/Dodos-Riding-Dinos",
     "length": "Short",
     "fixedDate": ""
   }
