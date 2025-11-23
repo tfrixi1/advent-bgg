@@ -62,12 +62,15 @@ header {
 }
 
 .checkmark {
-  position: absolute;
-  top: 2px;
-  right: 4px;
-  font-size: 1.2em;
-  color: #0f0;
+  width: 18px;
+  height: 18px;
+  border: solid #0f6b20; /* evergreen */
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  display: inline-block;
+  margin-top: 4px;
 }
+
 
 .hidden {
   display: none;
@@ -129,6 +132,7 @@ header {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
 
 
 
