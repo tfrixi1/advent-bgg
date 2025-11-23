@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const usedGames = new Set();
 
-      for(let i=1; i<=25; i++){
+      for (let i = 1; i <= 25; i++) {
         const door = document.createElement('div');
         door.classList.add('door');
 
@@ -38,25 +38,27 @@ document.addEventListener('DOMContentLoaded', () => {
         // ------------------ Assign game ------------------
         let game;
         const fixed = fixedGames.find(g => {
-          if(!g.fixed_date) return false;
+          if (!g.fixed_date) return false;
           const dateParts = g.fixed_date.split('-'); // "YYYY-MM-DD"
           const fixedMonth = parseInt(dateParts[1], 10) - 1; // 0-indexed
           const fixedDay = parseInt(dateParts[2], 10);
           return fixedMonth === doorMonth && fixedDay === doorDay;
         });
 
-        if(fixed){
+        if (fixed) {
           game = fixed;
         } else {
           const dayOfWeek = new Date(2025, doorMonth, doorDay).getDay();
           let pool = (dayOfWeek === 0 || dayOfWeek === 6) ? longGames : shortGames;
           pool = pool.filter(g => !usedGames.has(g.game_name));
-          if(pool.length === 0){
+
+          if (pool.length === 0) {
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
           }
-          if(pool.length === 0){
+          if (pool.length === 0) {
             pool = games; // fallback
           }
+
           game = pool[Math.floor(Math.random() * pool.length)];
         }
 
@@ -65,26 +67,30 @@ document.addEventListener('DOMContentLoaded', () => {
         door.dataset.gameImage = game.image;
 
         // ------------------ Display behavior ------------------
-        if(isFuture){
+        if (isFuture) {
           door.classList.add('locked');
-          door.textContent = '🔒';
-        } else if(isPast){
-          const img = document.createElement('img');
-          img.src = game.image;
-          img.style.display = 'block';
-          door.appendChild(img);
-          door.innerHTML += `<span class="checkmark">✔</span>`;
-        } else if(isToday){
-          door.textContent = i;
+          door.innerHTML = `<span class="lock-icon">🔒</span>`;
+        }
 
-          // Click listener for today
+        else if (isPast) {
+          // Past doors show the image + CSS checkmark
+          door.innerHTML = `
+            <img src="${game.image}">
+            <span class="checkmark"></span>
+          `;
+        }
+
+        else if (isToday) {
+          // Today shows the day number until opened
+          door.innerHTML = `<span class="day-number">${i}</span>`;
+
           door.addEventListener('click', function openTodayDoor() {
-            if(!door.dataset.gameName) return;
+            if (!door.dataset.gameName) return;
 
             // Play sound
-            if(doorSound) doorSound.play();
+            if (doorSound) doorSound.play();
 
-            // Fade out door
+            // Fade out
             door.style.opacity = 0;
 
             setTimeout(() => {
@@ -93,12 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
               popupName.textContent = door.dataset.gameName;
               popup.classList.remove('hidden');
 
-              // Mark door as opened
+              // Replace door content with the game image + green checkmark
               door.style.opacity = 1;
-              door.innerHTML = `<img src="${door.dataset.gameImage}" style="display:block;"><span class="checkmark">✔</span>`;
+              door.innerHTML = `
+                <img src="${door.dataset.gameImage}">
+                <span class="checkmark"></span>
+              `;
+
             }, 600);
 
-            // Remove listener
             door.removeEventListener('click', openTodayDoor);
           });
         }
@@ -110,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => console.error('Error loading games.json:', err));
 
   // ------------------ Close popup ------------------
-  if(closePopupBtn){
+  if (closePopupBtn) {
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
       popupImage.src = '';
