@@ -66,23 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
         door.dataset.gameName = game.game_name;
         door.dataset.gameImage = game.image;
 
-        // ------------------ Day number element ------------------
+        // ------------------ Create elements ------------------
         const dayLabel = document.createElement("div");
         dayLabel.classList.add("door-day");
         dayLabel.textContent = doorDay;
-        door.appendChild(dayLabel);
 
-        // ------------------ Lock icon element ------------------
         const lock = document.createElement("div");
         lock.classList.add("lock-icon");
         lock.textContent = "🔒";
-        door.appendChild(lock);
 
-        // ------------------ Checkmark element ------------------
         const check = document.createElement("div");
         check.classList.add("checkmark");
         check.textContent = "✔️";
+
+        // Append in proper order: image (if any) -> day -> check -> lock
+        door.appendChild(dayLabel);
         door.appendChild(check);
+        door.appendChild(lock);
 
         // ------------------ Display behavior ------------------
         if(isFuture){
@@ -91,13 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         else if(isPast){
           door.classList.add('opened');
+
           const img = document.createElement('img');
           img.src = game.image;
-          door.insertBefore(img, check); // put image below checkmark
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'contain';
+
+          door.insertBefore(img, dayLabel); // image behind day label & checkmark
         }
 
         else if(isToday){
-          door.innerHTML = `<span class="door-day">${doorDay}</span>`; // show day
+          // Initially show only day
+          dayLabel.style.top = '50%';
+          dayLabel.style.left = '50%';
+          dayLabel.style.transform = 'translate(-50%, -50%)';
 
           door.addEventListener('click', function openTodayDoor() {
             if(!door.dataset.gameName) return;
@@ -106,17 +114,28 @@ document.addEventListener('DOMContentLoaded', () => {
             door.style.opacity = 0;
 
             setTimeout(() => {
+              // Show popup
               popupImage.src = door.dataset.gameImage;
               popupName.textContent = door.dataset.gameName;
               popup.classList.remove('hidden');
 
-              door.style.opacity = 1;
-              door.classList.add('opened');
-
-              // Add image below checkmark
+              // Show image in door
               const img = document.createElement('img');
               img.src = door.dataset.gameImage;
-              door.insertBefore(img, check);
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.objectFit = 'contain';
+              door.insertBefore(img, dayLabel);
+
+              door.classList.add('opened');
+
+              // Adjust day label to top-right
+              dayLabel.style.top = '6px';
+              dayLabel.style.right = '6px';
+              dayLabel.style.left = 'auto';
+              dayLabel.style.transform = 'none';
+
+              door.style.opacity = 1;
 
             }, 600);
 
