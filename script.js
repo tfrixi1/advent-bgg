@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         check.classList.add("checkmark");
         check.textContent = "✔️";
 
-        // Append in proper order: image (if any) -> day -> check -> lock
+        // Append day/check/lock first; image inserted later
         door.appendChild(dayLabel);
         door.appendChild(check);
         door.appendChild(lock);
@@ -98,14 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
           img.style.height = '100%';
           img.style.objectFit = 'contain';
 
-          door.insertBefore(img, dayLabel); // image behind day label & checkmark
+          door.insertBefore(img, dayLabel); // behind day & check
         }
 
         else if(isToday){
-          // Initially show only day
+          // Center day number initially
           dayLabel.style.top = '50%';
           dayLabel.style.left = '50%';
           dayLabel.style.transform = 'translate(-50%, -50%)';
+          dayLabel.style.fontSize = '24px';
 
           door.addEventListener('click', function openTodayDoor() {
             if(!door.dataset.gameName) return;
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
               popupName.textContent = door.dataset.gameName;
               popup.classList.remove('hidden');
 
-              // Show image in door
+              // Add image inside door
               const img = document.createElement('img');
               img.src = door.dataset.gameImage;
               img.style.width = '100%';
@@ -129,11 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
               door.classList.add('opened');
 
-              // Adjust day label to top-right
+              // Move day label to top-right
               dayLabel.style.top = '6px';
               dayLabel.style.right = '6px';
               dayLabel.style.left = 'auto';
               dayLabel.style.transform = 'none';
+              dayLabel.style.fontSize = '16px';
 
               door.style.opacity = 1;
 
