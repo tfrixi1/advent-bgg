@@ -1,50 +1,50 @@
 [
   {
-    "Name": "Ticket to Ride Nordic Countries",
-    "ImageURL": "images/Ticket-to-ride-nordic-countries",
+    "game_name": "Ticket to Ride Nordic Countries",
+    "image": "images/Ticket-to-ride-nordic-countries.jpg",
     "length": "Long",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Bombastic",
-    "ImageURL": "images/Bombastic",
+    "game_name": "Bombastic",
+    "image": "images/Bombastic.jpg",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Viking See-Saw",
-    "ImageURL": "images/Viking-See-Saw",
+    "game_name": "Viking See-Saw",
+    "image": "images/Viking-See-Saw.jpg",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Dice Throne",
-    "ImageURL": "images/Dice-Throne-Santa-V-Krampus",
+    "game_name": "Dice Throne",
+    "image": "images/Dice-Throne-Santa-V-Krampus.jpg",
     "length": "Short",
-    "fixedDate": "2025-12-01"
+    "fixed_date": "2025-12-01"
   },
   {
-    "Name": "Skulls of Sedlec",
-    "ImageURL": "images/Skulls-of-Sedlec",
+    "game_name": "Skulls of Sedlec",
+    "image": "images/Skulls-of-Sedlec.jpg",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Dice Throne Missions",
-    "ImageURL": "images/Dice-Throne-Missions",
+    "game_name": "Dice Throne Missions",
+    "image": "images/Dice-Throne-Missions.jpg",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Kingdomino",
-    "ImageURL": "images/Kingdomino-Origins",
+    "game_name": "Kingdomino",
+    "image": "images/Kingdomino-Origins.jpg",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   },
   {
-    "Name": "Dodo's Riding Dinos",
-    "ImageURL": "images/Dodos-Riding-Dinos",
+    "game_name": "Dodo's Riding Dinos",
+    "image": "images/Dodos-Riding-Dinos.png",
     "length": "Short",
-    "fixedDate": ""
+    "fixed_date": ""
   }
 ]
