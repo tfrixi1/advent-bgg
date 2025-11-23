@@ -40,22 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const fixed = fixedGames.find(g => {
           if (!g.fixed_date) return false;
           const dateParts = g.fixed_date.split('-'); // "YYYY-MM-DD"
-          const fixedMonth = parseInt(dateParts[1], 10) - 1; // 0-indexed
+          const fixedMonth = parseInt(dateParts[1], 10) - 1;
           const fixedDay = parseInt(dateParts[2], 10);
           return fixedMonth === doorMonth && fixedDay === doorDay;
         });
 
-        if (fixed) {
+        if(fixed){
           game = fixed;
         } else {
           const dayOfWeek = new Date(2025, doorMonth, doorDay).getDay();
           let pool = (dayOfWeek === 0 || dayOfWeek === 6) ? longGames : shortGames;
           pool = pool.filter(g => !usedGames.has(g.game_name));
 
-          if (pool.length === 0) {
+          if(pool.length === 0){
             pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
           }
-          if (pool.length === 0) {
+          if(pool.length === 0){
             pool = games; // fallback
           }
 
@@ -66,45 +66,57 @@ document.addEventListener('DOMContentLoaded', () => {
         door.dataset.gameName = game.game_name;
         door.dataset.gameImage = game.image;
 
+        // ------------------ Day number element ------------------
+        const dayLabel = document.createElement("div");
+        dayLabel.classList.add("door-day");
+        dayLabel.textContent = doorDay;
+        door.appendChild(dayLabel);
+
+        // ------------------ Lock icon element ------------------
+        const lock = document.createElement("div");
+        lock.classList.add("lock-icon");
+        lock.textContent = "🔒";
+        door.appendChild(lock);
+
+        // ------------------ Checkmark element ------------------
+        const check = document.createElement("div");
+        check.classList.add("checkmark");
+        check.textContent = "✔️";
+        door.appendChild(check);
+
         // ------------------ Display behavior ------------------
-        if (isFuture) {
+        if(isFuture){
           door.classList.add('locked');
-          door.innerHTML = `<span class="lock-icon">🔒</span>`;
         }
 
-        else if (isPast) {
-          // Past doors show the image + CSS checkmark
-          door.innerHTML = `
-            <img src="${game.image}">
-            <span class="checkmark"></span>
-          `;
+        else if(isPast){
+          door.classList.add('opened');
+          const img = document.createElement('img');
+          img.src = game.image;
+          door.insertBefore(img, check); // put image below checkmark
         }
 
-        else if (isToday) {
-          // Today shows the day number until opened
-          door.innerHTML = `<span class="day-number">${i}</span>`;
+        else if(isToday){
+          door.innerHTML = `<span class="door-day">${doorDay}</span>`; // show day
 
           door.addEventListener('click', function openTodayDoor() {
-            if (!door.dataset.gameName) return;
+            if(!door.dataset.gameName) return;
 
-            // Play sound
-            if (doorSound) doorSound.play();
-
-            // Fade out
+            if(doorSound) doorSound.play();
             door.style.opacity = 0;
 
             setTimeout(() => {
-              // Show popup
               popupImage.src = door.dataset.gameImage;
               popupName.textContent = door.dataset.gameName;
               popup.classList.remove('hidden');
 
-              // Replace door content with the game image + green checkmark
               door.style.opacity = 1;
-              door.innerHTML = `
-                <img src="${door.dataset.gameImage}">
-                <span class="checkmark"></span>
-              `;
+              door.classList.add('opened');
+
+              // Add image below checkmark
+              const img = document.createElement('img');
+              img.src = door.dataset.gameImage;
+              door.insertBefore(img, check);
 
             }, 600);
 
@@ -119,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => console.error('Error loading games.json:', err));
 
   // ------------------ Close popup ------------------
-  if (closePopupBtn) {
+  if(closePopupBtn){
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
       popupImage.src = '';
