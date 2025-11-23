@@ -161,6 +161,14 @@ header {
     height: 70px;
     font-size: 1rem;
   }
+
+  .lock-icon {
+    font-size: 20px;
+  }
+  
+  .checkmark {
+    font-size: 22px;
+  }
 }
 
 /* Desktop: exactly 5 across */
@@ -169,3 +177,4 @@ header {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
