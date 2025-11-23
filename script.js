@@ -102,48 +102,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         else if(isToday){
-          // Center day number initially
-          dayLabel.style.top = '50%';
-          dayLabel.style.left = '50%';
-          dayLabel.style.transform = 'translate(-50%, -50%)';
-          dayLabel.style.fontSize = '24px';
+  // Initially show only the day number
+  door.innerHTML = ''; // clear any children
+  door.appendChild(dayLabel);
 
-          door.addEventListener('click', function openTodayDoor() {
-            if(!door.dataset.gameName) return;
+  door.addEventListener('click', function openTodayDoor() {
+    if(!door.dataset.gameName) return;
 
-            if(doorSound) doorSound.play();
-            door.style.opacity = 0;
+    // Play sound
+    if(doorSound) doorSound.play();
 
-            setTimeout(() => {
-              // Show popup
-              popupImage.src = door.dataset.gameImage;
-              popupName.textContent = door.dataset.gameName;
-              popup.classList.remove('hidden');
+    // Fade out
+    door.style.opacity = 0;
 
-              // Add image inside door
-              const img = document.createElement('img');
-              img.src = door.dataset.gameImage;
-              img.style.width = '100%';
-              img.style.height = '100%';
-              img.style.objectFit = 'contain';
-              door.insertBefore(img, dayLabel);
+    setTimeout(() => {
+      // Show popup
+      popupImage.src = door.dataset.gameImage;
+      popupName.textContent = door.dataset.gameName;
+      popup.classList.remove('hidden');
 
-              door.classList.add('opened');
+      // Clear door content
+      door.innerHTML = '';
 
-              // Move day label to top-right
-              dayLabel.style.top = '6px';
-              dayLabel.style.right = '6px';
-              dayLabel.style.left = 'auto';
-              dayLabel.style.transform = 'none';
-              dayLabel.style.fontSize = '16px';
+      // Create and insert image
+      const img = document.createElement('img');
+      img.src = door.dataset.gameImage;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'contain';
 
-              door.style.opacity = 1;
+      // Append image first
+      door.appendChild(img);
 
-            }, 600);
+      // Append checkmark
+      const check = document.createElement('div');
+      check.classList.add('checkmark');
+      check.textContent = "✔️";
+      door.appendChild(check);
 
-            door.removeEventListener('click', openTodayDoor);
-          });
-        }
+      // Append day label in top-right
+      dayLabel.style.top = '6px';
+      dayLabel.style.right = '6px';
+      dayLabel.style.left = 'auto';
+      dayLabel.style.transform = 'none';
+      dayLabel.style.position = 'absolute';
+      dayLabel.style.zIndex = '10';
+      door.appendChild(dayLabel);
+
+      door.classList.add('opened');
+      door.style.opacity = 1;
+
+    }, 600);
+
+    door.removeEventListener('click', openTodayDoor);
+  });
+}
+
 
         calendarEl.appendChild(door);
       }
@@ -161,3 +175,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
