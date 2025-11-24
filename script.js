@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupTitle = document.getElementById("popupTitle");
     const closePopup = document.getElementById("closePopup");
 
-    const today = new Date();
+    const today = new Date(2025-11-10);
     const year = today.getFullYear();
     const december1 = new Date(year, 11, 1);
     const december25 = new Date(year, 11, 25);
@@ -154,3 +154,4 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === popup) popup.style.display = "none";
     });
 });
+
