@@ -1,178 +1,156 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const calendar = document.getElementById("calendar");
+    const popup = document.getElementById("popup");
+    const popupContent = document.getElementById("popupContent");
+    const popupTitle = document.getElementById("popupTitle");
+    const closePopup = document.getElementById("closePopup");
 
-  const calendarEl = document.getElementById('calendar');
-  const popup = document.getElementById('popup');
-  const popupImage = document.getElementById('popup-image');
-  const popupName = document.getElementById('popup-name');
-  const closePopupBtn = document.getElementById('close-popup');
-  const doorSound = document.getElementById('door-sound');
+    const today = new Date();
+    const year = today.getFullYear();
+    const december1 = new Date(year, 11, 1);
+    const december25 = new Date(year, 11, 25);
 
-  // ------------------ TEST SETTING ------------------
-  const TEST_MONTH = 11; // December (0-indexed)
-  const TEST_DAY = 3;    // Change this to test today
+    // --- LocalStorage KEY for storing assigned games ---
+    const HISTORY_KEY = "adventGameHistory";
 
-  fetch('games.json')
-    .then(res => res.json())
-    .then(games => {
+    function loadHistory() {
+        const saved = localStorage.getItem(HISTORY_KEY);
+        return saved ? JSON.parse(saved) : {};
+    }
 
-      const fixedGames = games.filter(g => g.fixed_date);
-      let flexibleGames = games.filter(g => !g.fixed_date);
+    function saveHistory(history) {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
 
-      let shortGames = flexibleGames.filter(g => g.length === "short");
-      let longGames = flexibleGames.filter(g => g.length === "long");
+    let gameHistory = loadHistory();
 
-      const usedGames = new Set();
+    // Utility to format YYYY-MM-DD
+    function formatDate(date) {
+        return date.toISOString().split("T")[0];
+    }
 
-      for (let i = 1; i <= 25; i++) {
-        const door = document.createElement('div');
-        door.classList.add('door');
+    const isBeforeDecember = today < december1;
 
-        // ------------------ Determine door status ------------------
-        const doorDay = i;
-        const doorMonth = 11; // December
+    fetch("games.json")
+        .then(response => response.json())
+        .then(games => {
+            buildCalendar(games);
+        })
+        .catch(error => console.error("Error loading games.json:", error));
 
-        const isToday = (doorDay === TEST_DAY && doorMonth === TEST_MONTH);
-        const isPast = (doorDay < TEST_DAY && doorMonth === TEST_MONTH);
-        const isFuture = (doorDay > TEST_DAY && doorMonth === TEST_MONTH);
+    function buildCalendar(games) {
+        const gamePool = [...games];
 
-        // ------------------ Assign game ------------------
-        let game;
-        const fixed = fixedGames.find(g => {
-          if (!g.fixed_date) return false;
-          const dateParts = g.fixed_date.split('-'); // "YYYY-MM-DD"
-          const fixedMonth = parseInt(dateParts[1], 10) - 1;
-          const fixedDay = parseInt(dateParts[2], 10);
-          return fixedMonth === doorMonth && fixedDay === doorDay;
-        });
+        calendar.innerHTML = "";
 
-        if(fixed){
-          game = fixed;
-        } else {
-          const dayOfWeek = new Date(2025, doorMonth, doorDay).getDay();
-          let pool = (dayOfWeek === 0 || dayOfWeek === 6) ? longGames : shortGames;
-          pool = pool.filter(g => !usedGames.has(g.game_name));
+        for (let day = 1; day <= 25; day++) {
+            const date = new Date(year, 11, day);
+            const dateKey = formatDate(date);
 
-          if(pool.length === 0){
-            pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
-          }
-          if(pool.length === 0){
-            pool = games; // fallback
-          }
+            const box = document.createElement("div");
+            box.classList.add("door");
 
-          game = pool[Math.floor(Math.random() * pool.length)];
+            // DAY LABEL (centered for locked/unopened)
+            const dayLabel = document.createElement("div");
+            dayLabel.classList.add("day-label");
+            dayLabel.innerText = day;
+            box.appendChild(dayLabel);
+
+            const isToday = formatDate(today) === dateKey;
+            const isPast = today > date;
+            const isFuture = today < date;
+
+            // --- Check if this day already has a locked game ---
+            let assignedGame = gameHistory[dateKey] || null;
+
+            // If no assigned game and the box is in the past or today → assign one now
+            if (!assignedGame && (isPast || isToday)) {
+                assignedGame = selectGameForDay(date, gamePool);
+                if (assignedGame) {
+                    gameHistory[dateKey] = assignedGame;
+                    saveHistory(gameHistory);
+                }
+            }
+
+            // If we have an assigned game, mark door as opened
+            if (assignedGame) {
+                box.classList.add("opened");
+
+                // Day label moves to top-right
+                dayLabel.classList.add("day-label-opened");
+
+                // Game image
+                const img = document.createElement("img");
+                img.src = assignedGame.ImageURL + ".png";
+                img.alt = assignedGame.Name;
+                img.classList.add("door-image");
+                box.appendChild(img);
+
+                // Checkmark
+                const check = document.createElement("div");
+                check.classList.add("checkmark");
+                check.innerText = "✔️";
+                box.appendChild(check);
+
+                // Click to reopen the popup
+                box.addEventListener("click", () => {
+                    openPopup(assignedGame.Name, img.src);
+                });
+
+            } else {
+                // --- FUTURE DAYS → locked ---
+                box.classList.add("locked");
+
+                const lockIcon = document.createElement("div");
+                lockIcon.classList.add("lock-icon");
+                lockIcon.innerText = "🔒";
+                box.appendChild(lockIcon);
+            }
+
+            // Highlight TODAY with green border
+            if (isToday) box.classList.add("today");
+
+            calendar.appendChild(box);
+        }
+    }
+
+    // --- Game Selection With Fixed Dates & Scheduling ---
+    function selectGameForDay(dateObj, gamePool) {
+        const dateKey = formatDate(dateObj);
+
+        // 1. Check for fixed-date games first
+        const fixed = gamePool.find(g => g.fixedDate === dateKey);
+        if (fixed) {
+            removeGameFromPool(fixed.Name, gamePool);
+            return fixed;
         }
 
-        usedGames.add(game.game_name);
-        door.dataset.gameName = game.game_name;
-        door.dataset.gameImage = game.image;
+        // 2. Random selection from remaining games
+        if (gamePool.length === 0) return null;
 
-        // ------------------ Create elements ------------------
-        const dayLabel = document.createElement("div");
-        dayLabel.classList.add("door-day");
-        dayLabel.textContent = doorDay;
+        const choice = gamePool[Math.floor(Math.random() * gamePool.length)];
+        removeGameFromPool(choice.Name, gamePool);
 
-        const lock = document.createElement("div");
-        lock.classList.add("lock-icon");
-        lock.textContent = "🔒";
+        return choice;
+    }
 
-        const check = document.createElement("div");
-        check.classList.add("checkmark");
-        check.textContent = "✔️";
+    function removeGameFromPool(name, pool) {
+        const idx = pool.findIndex(g => g.Name === name);
+        if (idx !== -1) pool.splice(idx, 1);
+    }
 
-        // Append day/check/lock first; image inserted later
-        door.appendChild(dayLabel);
-        door.appendChild(check);
-        door.appendChild(lock);
+    // --- Popup ---
+    function openPopup(name, imgSrc) {
+        popupTitle.innerText = name;
+        popupContent.innerHTML = `<img src="${imgSrc}" class="popup-image">`;
+        popup.style.display = "block";
+    }
 
-        // ------------------ Display behavior ------------------
-        if(isFuture){
-          door.classList.add('locked');
-        }
-
-        else if(isPast){
-          door.classList.add('opened');
-
-          const img = document.createElement('img');
-          img.src = game.image;
-          img.style.width = '100%';
-          img.style.height = '100%';
-          img.style.objectFit = 'contain';
-
-          door.insertBefore(img, dayLabel); // behind day & check
-        }
-
-        else if(isToday){
-  // Initially show only the day number
-  door.innerHTML = ''; // clear any children
-  door.appendChild(dayLabel);
-
-  door.addEventListener('click', function openTodayDoor() {
-    if(!door.dataset.gameName) return;
-
-    // Play sound
-    if(doorSound) doorSound.play();
-
-    // Fade out
-    door.style.opacity = 0;
-
-    setTimeout(() => {
-      // Show popup
-      popupImage.src = door.dataset.gameImage;
-      popupName.textContent = door.dataset.gameName;
-      popup.classList.remove('hidden');
-
-      // Clear door content
-      door.innerHTML = '';
-
-      // Create and insert image
-      const img = document.createElement('img');
-      img.src = door.dataset.gameImage;
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.objectFit = 'contain';
-
-      // Append image first
-      door.appendChild(img);
-
-      // Append checkmark
-      const check = document.createElement('div');
-      check.classList.add('checkmark');
-      check.textContent = "✔️";
-      door.appendChild(check);
-
-      // Append day label in top-right
-      dayLabel.style.top = '6px';
-      dayLabel.style.right = '6px';
-      dayLabel.style.left = 'auto';
-      dayLabel.style.transform = 'none';
-      dayLabel.style.position = 'absolute';
-      dayLabel.style.zIndex = '10';
-      door.appendChild(dayLabel);
-
-      door.classList.add('opened');
-      door.style.opacity = 1;
-
-    }, 600);
-
-    door.removeEventListener('click', openTodayDoor);
-  });
-}
-
-
-        calendarEl.appendChild(door);
-      }
-
-    })
-    .catch(err => console.error('Error loading games.json:', err));
-
-  // ------------------ Close popup ------------------
-  if(closePopupBtn){
-    closePopupBtn.addEventListener('click', () => {
-      popup.classList.add('hidden');
-      popupImage.src = '';
-      popupName.textContent = '';
+    closePopup.addEventListener("click", () => {
+        popup.style.display = "none";
     });
-  }
 
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) popup.style.display = "none";
+    });
 });
-
