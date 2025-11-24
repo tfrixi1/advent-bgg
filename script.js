@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const d = parseInt(parts[2], 10);
             return m === 11 && d === day;
           });
-
+console.log("Assigning image for day", day, ":", assigned.image);
+          
           let game;
 
           if (fixed) {
@@ -156,5 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-console.log("Assigning image for day", day, ":", assigned.image);
+
+
 
