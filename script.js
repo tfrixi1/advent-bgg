@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ------------------ TESTING MODE ------------------
   const TESTING = true;
-  const TEST_MONTH = 11; // December
+  const TEST_MONTH = 11; // December (0-indexed)
   const TEST_DAY = 3;
   const today = TESTING ? new Date(2025, TEST_MONTH, TEST_DAY) : new Date();
 
@@ -28,29 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   }
 
-  const history = loadHistory(); // { "1": {name, image}, ... }
+  const history = loadHistory();
 
   // ------------------ LOAD GAME LIST ------------------
   fetch('games.json')
     .then(res => res.json())
     .then(games => {
 
-      // Normalize fields to match your JSON
-      games = games.map(g => ({
-        game_name: g.Name,
-        image: g.ImageURL + ".jpg",   // <- append .jpg automatically
-        length: g.length.toLowerCase(),
-        fixed_date: g.fixedDate || ""
-      }));
-
+      // All your JSON fields are already correct
       const fixedGames = games.filter(g => g.fixed_date);
-      const flexible = games.filter(g => !g.fixed_date);
-      const shortGames = flexible.filter(g => g.length === "short");
-      const longGames = flexible.filter(g => g.length === "long");
+      const flexibleGames = games.filter(g => !g.fixed_date);
+      const shortGames = flexibleGames.filter(g => g.length.toLowerCase() === "short");
+      const longGames = flexibleGames.filter(g => g.length.toLowerCase() === "long");
 
-      const used = new Set(Object.values(history).map(h => h.name));
+      const usedGames = new Set(Object.values(history).map(h => h.game_name));
 
-      // ------------------ BUILD CALENDAR ------------------
       for (let day = 1; day <= 25; day++) {
 
         const door = document.createElement("div");
@@ -62,19 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
         dayLabel.textContent = day;
         door.appendChild(dayLabel);
 
-        // Lock icon (always added, sometimes hidden)
+        // Lock icon
         const lock = document.createElement("div");
         lock.classList.add("lock-icon");
         lock.textContent = "🔒";
         door.appendChild(lock);
 
-        // Checkmark (hidden unless opened)
+        // Checkmark
         const check = document.createElement("div");
         check.classList.add("checkmark");
         check.textContent = "✔️";
         door.appendChild(check);
 
-        // ------------------ FIND OR ASSIGN GAME ------------------
+        // ------------------ ASSIGN GAME ------------------
         let assigned = history[day];
 
         if (!assigned) {
@@ -94,26 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             const dow = new Date(2025, 11, day).getDay();
             let pool = (dow === 0 || dow === 6) ? longGames : shortGames;
-            pool = pool.filter(g => !used.has(g.game_name));
+            pool = pool.filter(g => !usedGames.has(g.game_name));
 
-            if (pool.length === 0)
-              pool = flexible.filter(g => !used.has(g.game_name));
-            if (pool.length === 0)
-              pool = games;
+            if (pool.length === 0) pool = flexibleGames.filter(g => !usedGames.has(g.game_name));
+            if (pool.length === 0) pool = games;
 
             game = pool[Math.floor(Math.random() * pool.length)];
           }
 
-          assigned = {
-            name: game.game_name,
-            image: game.image
-          };
-
-          // Save to history immediately! (important)
+          assigned = { name: game.game_name, image: game.image };
           history[day] = assigned;
           saveHistory(history);
-
-          used.add(game.game_name);
+          usedGames.add(assigned.name);
         }
 
         // ------------------ DETERMINE STATE ------------------
@@ -127,10 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isPast) {
           door.classList.add("opened");
-
           const img = document.createElement("img");
           img.src = assigned.image;
-
           door.insertBefore(img, check);
         }
 
@@ -152,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
               const img = document.createElement("img");
               img.src = assigned.image;
               door.insertBefore(img, check);
-
             }, 500);
 
             door.removeEventListener("click", openDoor);
