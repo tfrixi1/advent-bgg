@@ -156,3 +156,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+console.log("Assigning image for day", day, ":", assigned.image);
+
