@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ------------------ TEST MODE ------------------
   const TEST_MONTH = 11; 
-  const TEST_DAY = 6;
+  const TEST_DAY = 15;
 
   // ------------------ HISTORY FUNCTIONS ------------------
   function loadHistory() {
@@ -198,3 +198,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
