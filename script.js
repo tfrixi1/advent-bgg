@@ -197,5 +197,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+    // ------------------ RESET CALENDAR ------------------
+  const resetBtn = document.getElementById('reset-calendar');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm("Are you sure you want to reset the calendar and clear all history?")) {
+
+        // Clear stored game history
+        localStorage.removeItem('gameHistory');
+
+        // Optionally clear the assigned game map too
+        localStorage.removeItem('assignedGames');
+
+        // Refresh page to rebuild calendar
+        window.location.reload();
+      }
+    });
+  }
+
+  
 });
+
 
