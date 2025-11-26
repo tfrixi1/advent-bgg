@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  width: 100%
+  width: 100%;
   text-align: center;
   flex-shrink: 0;
   flex-direction: column;
@@ -174,7 +174,8 @@ header {
   box-shadow: 0 4px 8px rgba(0,0,0,0.25);
   transition: 0.3s ease;
   display: block;
-  margin-bottom: 12px auto;
+  margin: 12px auto;
+  text-align: center;
 }
 
 #reset-calendar:hover {
@@ -210,6 +211,7 @@ header {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
 
 
 
