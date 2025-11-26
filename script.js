@@ -197,17 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Reset calendar (clear history)
-const resetBtn = document.getElementById('reset-calendar');
-if (resetBtn) {
-  resetBtn.addEventListener('click', () => {
-    if (confirm("Are you sure you want to reset the Advent Calendar?")) {
-      localStorage.removeItem('adventHistory');
-      location.reload();
-    }
-  });
-}
-
 
     // ------------------ RESET CALENDAR ------------------
   const resetBtn = document.getElementById('reset-calendar');
@@ -229,6 +218,7 @@ if (resetBtn) {
 
   
 });
+
 
 
 
