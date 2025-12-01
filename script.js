@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.getElementById('close-popup');
   const doorSound = document.getElementById('door-sound');
 
-  // ------------------ TEST MODE ------------------
-  const TEST_MONTH = 11; 
-  const TEST_DAY = 24;
 
   // ------------------ HISTORY FUNCTIONS ------------------
   function loadHistory() {
@@ -39,10 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const door = document.createElement('div');
         door.classList.add('door');
 
-        const doorMonth = 11;
-        const isToday = (day === TEST_DAY);
-        const isPast = (day < TEST_DAY);
-        const isFuture = (day > TEST_DAY);
+        const doorMonth = 11; //December
+
+        let today = new Date();
+        let currentMonth = today.getMonth(); //0-11
+        let currentDay = today.getDate();    //1-31
+
+        // Calendar Logic
+        const isToday = (currentMonth === doorMonth && day === currentDay);
+        const isPast = (currentMonth ===doorMonth && day < currentDay);
+        const isFuture = (currentMonth ===doorMonth && day > currentDay);
 
         let game;
 
@@ -223,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 });
+
 
 
 
