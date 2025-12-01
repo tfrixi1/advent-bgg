@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const fixedGames = games.filter(g => g.fixed_date);
       let flexibleGames = games.filter(g => !g.fixed_date);
 
-      let shortGames = flexibleGames.filter(g => g.length === "short");
-      let longGames = flexibleGames.filter(g => g.length === "long");
+      let shortGames = flexibleGames.filter(g => g.length === "Short");
+      let longGames = flexibleGames.filter(g => g.length === "Long");
 
       const usedGames = new Set();
 
@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 });
+
 
 
 
