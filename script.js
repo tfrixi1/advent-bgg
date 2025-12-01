@@ -66,7 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
           else {
             // -------------- STEP 3: Smart scheduling logic --------------
             const dayOfWeek = new Date(2025, doorMonth, day).getDay();
-            let pool = (dayOfWeek === 0 || dayOfWeek === 6) ? longGames : shortGames;
+            let pool = (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+              pool = longGames;
+            } else {
+              pool = shortGames;
+            }
             pool = pool.filter(g => !usedGames.has(g.game_name));
 
             if (pool.length === 0) {
@@ -218,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 });
+
 
 
 
