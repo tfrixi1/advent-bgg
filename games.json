@@ -1,24 +1,24 @@
 [
   {
-    "game_name": "Ticket to Ride Nordic Countries",
+    "game_name": "Ticket to Ride: Nordic Countries",
     "image": "images/Ticket-to-ride-nordic-countries.jpg",
     "length": "Long",
-    "fixed_date": ""
+    "fixed_date": "2025-12-07"
   },
   {
     "game_name": "Bombastic",
-    "image": "images/Bombastic.jpg",
+    "image": "images/Bombastic-2.jpg",
     "length": "Short",
-    "fixed_date": ""
+    "fixed_date": "2025-12-12"
   },
   {
     "game_name": "Viking See-Saw",
     "image": "images/Viking-See-Saw.jpg",
     "length": "Short",
-    "fixed_date": ""
+    "fixed_date": "2025-12-13"
   },
   {
-    "game_name": "Dice Throne",
+    "game_name": "Dice Throne: Santa V Krampus",
     "image": "images/Dice-Throne-Santa-V-Krampus.jpg",
     "length": "Short",
     "fixed_date": "2025-12-01"
@@ -32,7 +32,7 @@
   {
     "game_name": "Dice Throne Missions",
     "image": "images/Dice-Throne-Missions.jpg",
-    "length": "Short",
+    "length": "Long",
     "fixed_date": ""
   },
   {
@@ -46,5 +46,419 @@
     "image": "images/Dodos-Riding-Dinos.jpg",
     "length": "Short",
     "fixed_date": ""
+  },
+  {
+    "game_name": "Hey, That's my Fish",
+    "image": "images/Hey-Thats-My-Fish.jpg",
+    "length": "Short",
+    "fixed_date": "2025-12-14"
+  },
+  {
+    "game_name": "Tiger & Dragon",
+    "image": "images/Tiger-AND-Dragon.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Micro Macro: Crime City",
+    "image": "images/Micro-Macro-Crime-City.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Hamster Roll",
+    "image": "images/Hamster-Roll.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Royal Visit",
+    "image": "images/Royal-Visit.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Ichor",
+    "image": "images/Ichor.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Rajas of the Ganges",
+    "image": "images/Rajas-of-the-Ganges.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "King of Tokyo Duel",
+    "image": "images/King-of-Tokyo-Duel.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "10 Days in the USA",
+    "image": "images/10-Days-in-the-USA.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "3 Chapters",
+    "image": "images/3-Chapters.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Akropolis",
+    "image": "images/Akropolis.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Anthelion: Conclave of Power",
+    "image": "images/Anthelion.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Archeology: The New Expedition",
+    "image": "images/Archaeology-the-New-Expedition.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Blitzkrieg",
+    "image": "images/Blitzkrieg.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Botswana",
+    "image": "images/Botswana.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Caesar!",
+    "image": "images/Caesar.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Castles of Burgundy: The Dice Game",
+    "image": "images/Castles-of-Burgundy-Dice-Game.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Circus Flohcati",
+    "image": "images/Circus-Flohcati.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Deep Dive",
+    "image": "images/Deep-Dive.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Dionysia",
+    "image": "images/Dionysia.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Dog Fight",
+    "image": "images/DogFight.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Explorers",
+    "image": "images/Explorers.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Fantasy Realms",
+    "image": "images/Fantasy-Realms.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Toy Battle",
+    "image": "images/Toy-Battle.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Fleet the Dice Game",
+    "image": "images/Fleet-The-Dice-Game.jpg",
+    "length": "Short",
+    "fixed_date": "2025-12-11"
+  },
+  {
+    "game_name": "Flip Circus",
+    "image": "images/Flip-Circus.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Full Throttle",
+    "image": "images/Full-Throttle.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Glasgow",
+    "image": "images/Glasgow.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Gingerbread House",
+    "image": "images/GingerBread-House.jpg",
+    "length": "Short",
+    "fixed_date": "2025-12-23"
+  },
+  {
+    "game_name": "Holly Jolly",
+    "image": "images/Holly-Jolly.jpg",
+    "length": "Short",
+    "fixed_date": "2025-12-24"
+  },
+  {
+    "game_name": "Imhotep: The Duel",
+    "image": "images/Imhotep-The-Duel.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Iliad",
+    "image": "images/Iliad.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "In the Footsteps of Darwin",
+    "image": "images/In-The-Footsteps-of-Darwin.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Twinkle Twinkle",
+    "image": "images/Twinkle-Twinkle.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Junk Drawer",
+    "image": "images/Junk-Drawer.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Long Shot: The Dice Game",
+    "image": "images/Long-Shot-The-Dice-Game.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Looney Tunes Mayhem",
+    "image": "images/Looney-Tunes-Mayhem.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Neon Reign",
+    "image": "images/Neon-Reign.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Pacific Ocean",
+    "image": "images/Pacific-Ocean.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Panda Royal",
+    "image": "images/Panda-Royal.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Roll to the Top",
+    "image": "images/Roll-To-The-Top.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Rome in a Day",
+    "image": "images/Rome-in-a-Day.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Sunset Over Water",
+    "image": "images/Sunset-Over-Water.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Archeologic",
+    "image": "images/Archeologic.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Blue Lagoon",
+    "image": "images/Blue-Lagoon.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Cascadia",
+    "image": "images/Cascadia.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Santa's Workshop",
+    "image": "images/Santas-Workshop.jpg",
+    "length": "Long",
+    "fixed_date": "2025-12-25"
+  },
+  {
+    "game_name": "Fromage",
+    "image": "images/Fromage.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Viticulture",
+    "image": "images/Viticulture.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Hadrian's Wall",
+    "image": "images/Hadrians-Wall.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Heat: Pedal to the Metal",
+    "image": "images/Heat-Pedal-to-the-Metal.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "The Initiative",
+    "image": "images/The-Initiative.jpg",
+    "length": "Long",
+    "fixed_date": "2025-12-15"
+  },
+  {
+    "game_name": "Jamaica",
+    "image": "images/Jamaica.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Last Will",
+    "image": "images/Last-Will.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Marvel Champions",
+    "image": "images/Marvel-Champions.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Marvel United",
+    "image": "images/Marvel-United.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "MLEM",
+    "image": "images/MLEM.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Motor City",
+    "image": "images/Motor-City.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "My Island",
+    "image": "images/My-Island.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Quacks of Quedlinburg",
+    "image": "images/Quacks.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "The Quest for Eldorado",
+    "image": "images/Quest-for-ElDorado.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Sagrada",
+    "image": "images/Sagrada.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Sand Art",
+    "image": "images/Sand-Art.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Sunrise Lane",
+    "image": "images/Sunrise-Lane.jpg",
+    "length": "Short",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Terraforming Mars: The Dice Game",
+    "image": "images/Terraforming-Mars-the-Dice-Game.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Through the Desert",
+    "image": "images/Through-the-Desert.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Tiny Towns",
+    "image": "images/Tiny-Towns.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Trekking Through History",
+    "image": "images/Trekking-Through-History.jpg",
+    "length": "Long",
+    "fixed_date": ""
+  },
+  {
+    "game_name": "Penguin Party",
+    "image": "images/Penguin-Party.jpg",
+    "length": "Short",
+    "fixed_date": "2025-12-22"
   }
 ]
